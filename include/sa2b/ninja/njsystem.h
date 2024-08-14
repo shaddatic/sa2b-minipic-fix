@@ -4,10 +4,10 @@
 *   Contains flags, values, and functions for interacting with the Ninja system
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _NJSYSTEM_H_
 #define _NJSYSTEM_H_
@@ -94,16 +94,16 @@ typedef struct {
 /*--------------------------------------*/
 /*      Render Mode Data                */
 /*--------------------------------------*/
-#define _nj_screen_                         DataRef(NJS_SCREEN, 0x02670300)
-#define _nj_clip_                           DataRef(NJS_CLIP  , 0x02670560)
+#define _nj_screen_                         DATA_REF(NJS_SCREEN, 0x02670300)
+#define _nj_clip_                           DATA_REF(NJS_CLIP  , 0x02670560)
 
-#define _nj_control_3d_flag_                DataRef(Uint32    , 0x025F02D8)
+#define _nj_control_3d_flag_                DATA_REF(Uint32    , 0x025F02D8)
 
-#define _nj_vertex_buf_                     DataRef(void*     , 0x025EFE48)
-#define _nj_constant_attr_and_              DataRef(Uint32    , 0x025F0268)
-#define _nj_constant_attr_or_               DataRef(Uint32    , 0x025F02D4)
-#define _nj_constant_material_              DataRef(NJS_ARGB  , 0x025EFFD0) 
-#define _nj_cnk_blend_mode_                 DataRef(Uint32    , 0x025F0264)
+#define _nj_vertex_buf_                     DATA_REF(void*     , 0x025EFE48)
+#define _nj_constant_attr_and_              DATA_REF(Uint32    , 0x025F0268)
+#define _nj_constant_attr_or_               DATA_REF(Uint32    , 0x025F02D4)
+#define _nj_constant_material_              DATA_REF(NJS_ARGB  , 0x025EFFD0) 
+#define _nj_cnk_blend_mode_                 DATA_REF(Uint32    , 0x025F0264)
 
 /************************/
 /*  System              */

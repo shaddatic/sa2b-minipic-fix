@@ -6,9 +6,9 @@
 *   string imports.
 *
 *   Contributors:
-*   -   Shaddatic
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _EXTERN_STRING_H_
 #define _EXTERN_STRING_H_
@@ -27,14 +27,14 @@ EXTERN_END
 /************************/
 /*  Function Ptrs       */
 /************************/
-#ifdef SAMT_INCLUDE_FUNC_PTRS
+#ifdef SAMT_INCL_FUNCPTRS
 /** Function ptr **/
-#define ___strcmp_p         FuncPtr(int   , __cdecl, (const char*, const char*)  , 0x007ACED0)
-#define ___memset_p         FuncPtr(void* , __cdecl, (void*, int, size_t)        , 0x007ACDE0)
-#define ___strncat_p        FuncPtr(char* , __cdecl, (char*, const char*, size_t), 0x007ACED0)
-#define ___strlen_p         FuncPtr(size_t, __cdecl, (const char*)               , 0x007A8C00)
-#define ___memcpy_p         FuncPtr(void* , __cdecl, (void*, const void*, size_t), 0x007AB860)
+#define ___strcmp_p         FUNC_PTR(int   , __cdecl, (const char*, const char*)  , 0x007ACED0)
+#define ___memset_p         FUNC_PTR(void* , __cdecl, (void*, int, size_t)        , 0x007ACDE0)
+#define ___strncat_p        FUNC_PTR(char* , __cdecl, (char*, const char*, size_t), 0x007ACED0)
+#define ___strlen_p         FUNC_PTR(size_t, __cdecl, (const char*)               , 0x007A8C00)
+#define ___memcpy_p         FUNC_PTR(void* , __cdecl, (void*, const void*, size_t), 0x007AB860)
 
-#endif /* SAMT_INCLUDE_FUNC_PTRS */
+#endif /* SAMT_INCL_FUNCPTRS */
 
 #endif /* _EXTERN_STRING_H_ */

@@ -1,11 +1,11 @@
 #include <sa2b/core.h>
 #include <sa2b/init.h>
-#include <sa2b/memutil.h>
+#include <sa2b/writeop.h>
 
 /** Source **/
-#include <sa2b/src/task.h>
-#include <sa2b/src/set.h>
-#include <sa2b/src/minimal.h>
+#include <sa2b/sonic/task.h>
+#include <sa2b/sonic/set.h>
+#include <sa2b/sonic/minimal.h>
 
 static void
 ObjectPickUpMinimalSpawn(TASK* tp)
@@ -28,7 +28,7 @@ ObjectPickUpMinimalSpawn(TASK* tp)
 
 __declspec(naked)
 static void
-__ObjectPickUpMinimalSpawn()
+__ObjectPickUpMinimalSpawn(void)
 {
     __asm
     {
@@ -43,9 +43,9 @@ EXPORT_DLL
 void __cdecl
 Init(const char* path, const HelperFunctions* pHelpFuncs)
 {
-    WriteNoOP(0x006BC741, 0x006BC756);
+    WriteNOP( 0x006BC741, 0x006BC756);
     WriteCall(0x006BC741, __ObjectPickUpMinimalSpawn);
 }
 
 EXPORT_DLL
-ModInfo SA2ModInfo = { MODLOADER_VER };
+ModInfo SA2ModInfo = { ML_VERSION };

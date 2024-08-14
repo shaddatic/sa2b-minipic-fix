@@ -4,10 +4,10 @@
 *   Contains structs and functions for the Ninja Chunk model
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _NINJA_CHUNK_H_
 #define _NINJA_CHUNK_H_
@@ -427,6 +427,7 @@
 /* DB  : Double side                                     */
 /* FL  : Flat shading                                    */
 /* ENV : Environment                                     */
+/* NAT : No Alpha Test                                   */
 #define NJD_FST_SHIFT      8
 #define NJD_FST_IL        (0x01<<NJD_FST_SHIFT)
 #define NJD_FST_IS        (0x02<<NJD_FST_SHIFT)
@@ -435,6 +436,7 @@
 #define NJD_FST_DB        (0x10<<NJD_FST_SHIFT)
 #define NJD_FST_FL        (0x20<<NJD_FST_SHIFT)
 #define NJD_FST_ENV       (0x40<<NJD_FST_SHIFT)
+#define NJD_FST_NAT       (0x80<<NJD_FST_SHIFT)
 #define NJD_FST_MASK      (0xFF<<NJD_FST_SHIFT)
 
 /** UserFlag Offset Mask **/
@@ -508,12 +510,12 @@ void    njCnkTransformObject( NJS_CNK_OBJECT* object, int(__cdecl* callback)(NJS
 /*
     Internal Draw
 */
-void    _njCnkDrawModel( NJS_CNK_MODEL* model );
+Sint32  _njCnkDrawModel( NJS_CNK_MODEL* model );
 
 /*
     Draw
 */
-void    njCnkDrawModel( NJS_CNK_MODEL* model );
+Sint32  njCnkDrawModel( NJS_CNK_MODEL* model );
 void    njCnkDrawObject( NJS_CNK_OBJECT* object );
 
 void    njCnkDrawModel_Broken( NJS_CNK_MODEL* model );

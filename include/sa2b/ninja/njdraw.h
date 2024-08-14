@@ -4,10 +4,10 @@
 *   Contains functions, macros, structs, and typedefs for basic drawing
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _NJDRAW_H_
 #define _NJDRAW_H_
@@ -106,7 +106,7 @@ typedef struct {
 /************************/
 void    njDrawPolygon(NJS_POLYGON_VTX* polygon, Int count, Int trans);
 void    njDrawTexture(NJS_TEXTURE_VTX* polygon, Int count, Int tex, Int flag);
-void    njDrawTextureEx(NJS_TEXTURE_VTX* polygon, Int count, Int trans);
+void    njDrawTextureEx(NJS_TEXTURE_VTX* polygon, Int count, Int trans); /* Ignores 'count' argument, always 4 */
 void    njDrawTextureHEx(NJS_TEXTUREH_VTX* polygon, Int count, Int trans);
 
 void    njDrawPolygon2DExStart(Int trans);
@@ -136,7 +136,7 @@ void    njDrawTexture3DHExStart(Int trans);
 void    njDrawTexture3DHExSetData(NJS_TEXTUREH_VTX* p, Int count);
 void    njDrawTexture3DHExEnd(void);
 
-#define _nj_quad_color_     DataRef(Uint32, 0x01A54FF0)
+#define _nj_quad_color_     DATA_REF(Uint32, 0x01A54FF0)
 
 void    njQuadTextureStart(Sint32 trans);
 void    njQuadTextureEnd(void);
@@ -155,29 +155,26 @@ void    njDrawLine3DExSetList(NJS_POINT3* vtx, Sint32 Count);
 void    njDrawLine2DExSetStrip(NJS_POINT2* vtx, Float ooz, Sint32 Count);
 void    njDrawLine2DExSetList(NJS_POINT2* vtx, Float ooz, Sint32 Count);
 
-void    njDrawModifierExStart(Sint32 Trans);
-void    njDrawModifierExEnd(void);
-void    njDrawModifier3DExSetData(NJS_POINT3* vtx, Sint32 Count, Sint32 Last);
-void    njDrawModifier2DExSetData(NJS_POINT2* vtx, Float ooz, Sint32 Count, Sint32 Last);
-
 /************************/
 /*  Draw 2D             */
 /************************/
-void    njDrawPoint2D(NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr);
-void    njDrawLine2D(NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr);
-void    njDrawTriangle2D(NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr);
-void    njDrawPolygon2D(NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr); /* Ignores 'n' argument, always uses 4 */
-void    njDrawCircle2D(NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr);
-
-/************************/
-/*  Scroll Funcion      */
-/************************/
-void    njDrawScroll(NJS_SCROLL* scl);
+/*
+*   Parameters:
+*     - p       : Pointer to a POINT2COL list
+*     - n       : Number of entries in POINT2COL list
+*     - pri     : Draw priority, between -1.f & -65535.f
+*     - attr    : Draw attributes
+*/
+void    njDrawPoint2D(    NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr );
+void    njDrawLine2D(     NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr );
+void    njDrawTriangle2D( NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr );
+void    njDrawPolygon2D(  NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr ); /* Ignores 'n' argument, always uses 4 */
+void    njDrawCircle2D(   NJS_POINT2COL* p, Sint32 n, Float pri, Uint32 attr );
 
 /************************/
 /*  Sprite              */
 /************************/
-void    njDrawSprite2D(NJS_SPRITE* sp, Int n, Float pri, Uint32 attr);
-void    njDrawSprite3D(NJS_SPRITE* sp, Int n, Uint32 attr);
+void    njDrawSprite2D( NJS_SPRITE* sp, Int n, Float pri, Uint32 attr );
+void    njDrawSprite3D( NJS_SPRITE* sp, Int n,            Uint32 attr );
 
 #endif

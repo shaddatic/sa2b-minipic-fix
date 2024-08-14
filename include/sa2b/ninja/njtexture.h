@@ -4,10 +4,10 @@
 *   Contains flags, macros, and functions for Ninja textures
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _NJTEXTURE_H_
 #define _NJTEXTURE_H_
@@ -252,7 +252,7 @@ void njClearTextureSurfaceNumG(Uint32 globalIndex);
 Sint32 njReleaseTexture(NJS_TEXLIST* texlist);
 Sint32 njReleaseTextureNum(Uint32 n);
 Sint32 njReleaseTextureNumG(Uint32 n);
-void njReleaseTextureAll(void);
+void   njReleaseTextureAll(void);
 
 /* Render Texture */
 void njRenderTextureNum(Uint32 n);

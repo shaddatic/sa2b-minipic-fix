@@ -4,13 +4,13 @@
 *   Ninja is the rendering API used for both adventure games
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
-#ifndef    _NJNJA_H_
-#define    _NJNJA_H_
+#ifndef _NJNJA_H_
+#define _NJNJA_H_
 
 EXTERN_START
 
@@ -35,8 +35,12 @@ EXTERN_START
 #include <sa2b/ninja/njdebug.h>
 
 #include <sa2b/ninja/njbasic.h>
+
 #include <sa2b/ninja/ginja.h>
+#include <sa2b/ninja/gjmodel.h>
+#include <sa2b/ninja/gjdraw.h>
+#include <sa2b/ninja/gjlight.h>
 
 EXTERN_END
 
-#endif /* _NJNJA_H_ */
+#endif/*_NJNJA_H_*/

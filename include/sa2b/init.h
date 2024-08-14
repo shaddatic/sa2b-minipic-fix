@@ -6,9 +6,9 @@
 *   toolkit & the user mod.
 *
 *   Contributors:
-*   -   Shaddatic
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _SAMT_INIT_H_
 #define _SAMT_INIT_H_
@@ -27,25 +27,16 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-/****** Global Init *********************************************************/
-/** Initializes entire Toolkit & all modules **/
-void    SAMT_Init(const char* path, const HelperFunctions* pHelpFuncs);
+/****** Base Init ***********************************************************/
+/** Initializes core toolkit modules **/
+void    SAMT_Init(const char* path, const HelperFunctions* pHelperFunctions);
 
-/****** Individual **********************************************************/
-/** Mod path **/
-void    SetModPath(const char* path);
+/****** Extra Init **********************************************************/
+/** Init DX9 device control module **/
+void    DX9_Init( void );
 
-/** Init Mod-Loader module **/
-void    ML_Init(const HelperFunctions* pHelpFuncs);
-
-/** Init D3D control module **/
-void    D3D_InitRenderDevice();
-
-/** Init SAMT input module **/
-void    InputInit();
-
-/** Init MT random number generator **/
-void    mtRandAutoSeeds();
+/** Init mersenne twister random number generator **/
+void    mtRandInit( void );
 
 EXTERN_END
 
@@ -59,16 +50,16 @@ EXTERN_END
 *
     EXPORT_DLL
     void __cdecl
-    Init(const char* path, const HelperFunctions* pHelpFuncs)
+    Init(const char* path, const HelperFunctions* pHelperFunctions)
     {
-        SAMT_Init(path, pHelpFuncs);
+        SAMT_Init(path, pHelperFunctions);
     }
 *
 *   Execute every rendered frame:
 *
     EXPORT_DLL
     void __cdecl
-    OnFrame()
+    OnFrame(void)
     {
 
     }
@@ -77,7 +68,7 @@ EXTERN_END
 *
     EXPORT_DLL
     void __cdecl
-    OnInput()
+    OnInput(void)
     {
 
     }
@@ -86,7 +77,7 @@ EXTERN_END
 *
     EXPORT_DLL
     void __cdecl
-    OnControl()
+    OnControl(void)
     {
 
     }
@@ -95,13 +86,45 @@ EXTERN_END
 *
     EXPORT_DLL
     void __cdecl
-    OnExit(uint32_t uExitCode, int a1, int a2)
+    OnExit(u32 code, s32 a1, s32 a2)
     {
-
+        
+    }
+*
+*   Execute on device lost:
+*
+    EXPORT_DLL
+    OnRenderDeviceLost(void)
+    {
+        
+    }
+*
+*   Execute on device reset:
+*
+    EXPORT_DLL
+    OnRenderDeviceReset(void)
+    {
+        
+    }
+*
+*   Execute on scene start, but before screen clear:
+*
+    EXPORT_DLL
+    OnRenderSceneStart(void)
+    {
+        
+    }
+*
+*   Execute on scene end:
+*
+    EXPORT_DLL
+    OnRenderSceneEnd(void)
+    {
+        
     }
 *
 *   Valid Mod Info ($ == SA2 or SADX):
 *
     EXPORT_DLL
-    ModInfo $ModInfo = { MODLOADER_VER };
+    ModInfo $ModInfo = { ML_VERSION };
 */

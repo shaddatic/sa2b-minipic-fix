@@ -5,13 +5,15 @@
 *   Many of these functions re-route to Mod Loader functions
 *
 *   Contributors:
-*   -   SEGA,
-*   -   Shaddatic
+*     - SEGA,
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _NJDEBUG_H_
 #define _NJDEBUG_H_
+
+#include <sa2b/shinobi/sg_xpt.h>
 
 #define NJM_GET_X(n)        ((Sint16)((n)>>16))
 #define NJM_GET_Y(n)        ((Sint16)((n)&0x0000FFFF))

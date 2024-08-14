@@ -11,21 +11,22 @@
 *   found and named via testing and context.
 *
 *   Contributors:
-*   -   Shaddatic
+*     - Shaddatic
 *
-*   Only for use with Sonic Adventure 2 for PC.
+*   Only for use with Sonic Adventure 2 for PC
 */
 #ifndef _GX_H_
 #define _GX_H_
 
 /************************/
-/*  Definitions         */
+/*  Includes            */
 /************************/
-/** Cull Modes **/
-#define GXD_CULLMODE_NONE       (0)
-#define GXD_CULLMODE_CW         (1)
-#define GXD_CULLMODE_CCW        (2)
+#include <sa2b/gx/gxlight.h>
+#include <sa2b/gx/gxstate.h>
 
+/************************/
+/*  Constants           */
+/************************/
 /** Primitive Types **/
 #define GXD_PRIM_TRIANGLE       (0x90)
 #define GXD_PRIM_TRISTRIP       (0x98)
@@ -37,18 +38,18 @@
 /************************/
 /*  Data                */
 /************************/
-#define _gx_nb_vtx_                 DataRef(int32_t , 0x01933F04)
-#define _gx_prim_type_              DataRef(int32_t , 0x01933EFC)
+#define _gx_nb_vtx_                 DATA_REF(int32_t , 0x01933F04)
+#define _gx_prim_type_              DATA_REF(int32_t , 0x01933EFC)
 
 /** Buffer poiners **/
-#define _gx_vtx_buf_base_           DataRef(uint32_t, 0x01933EF8)
-#define _gx_vtx_buf_offset_         DataRef(uint32_t, 0x01933F0C)
-#define _gx_vtx_buf_offset_cpy_     DataRef(uint32_t, 0x01933F10)
-#define _gx_vtx_buf_start_          DataRef(uint32_t, 0x01933F08)
+#define _gx_vtx_buf_base_           DATA_REF(uint32_t, 0x01933EF8)
+#define _gx_vtx_buf_offset_         DATA_REF(uint32_t, 0x01933F0C)
+#define _gx_vtx_buf_offset_cpy_     DATA_REF(uint32_t, 0x01933F10)
+#define _gx_vtx_buf_start_          DATA_REF(uint32_t, 0x01933F08)
 
-#define _gx_cull_                   DataRef(int32_t , 0x01933F14) // ??
+#define _gx_cull_                   DATA_REF(int32_t , 0x01933F14) // ??
 
-#define _gx_unused_                 DataRef(int32_t , 0x01933F00) // ???
+#define _gx_unused_                 DATA_REF(int32_t , 0x01933F00) // ???
 
 /************************/
 /*  Functions           */
@@ -60,12 +61,20 @@ void    GX_Startup(void);
 /** Populates buffers with Ginja model data **/
 void    GX_PushDisplayList(uint8_t* pPrim, uint32_t nbPrim);
 
-/** Sets back-face culling mode **/
-void    GX_SetCullMode(int32_t mode);
-
 /** Draws and clears buffer **/
 void    GX_End(void);
 
 EXTERN_END
+
+/************************/
+/*  Function Ptrs       */
+/************************/
+#ifdef  SAMT_INCL_FUNCPTRS
+/** Function ptr **/
+#   define GX_Startup_p                 FUNC_PTR(void, __cdecl   , (void)              , 0x004205E0)
+#   define GX_PushDisplayList_p         FUNC_PTR(void, __cdecl   , (uint8_t*, uint32_t), 0x0041C9B0)
+#   define GX_End_p                     FUNC_PTR(void, __cdecl   , (void)              , 0x0041C070)
+
+#endif/*SAMT_INCL_FUNCPTRS*/
 
 #endif/*_GX_H_*/
