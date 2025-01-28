@@ -22,8 +22,8 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-int32_t ALBHV_Eat(         TASK* tp );
-int32_t ALBHV_TurnToFruit( TASK* tp );
+int32_t ALBHV_Eat(         task* tp );
+int32_t ALBHV_TurnToFruit( task* tp );
 
 EXTERN_END
 
@@ -32,8 +32,8 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_Eat_p              BhvFUNC_PTR(0x005607C0)
-#   define ALBHV_TurnToFruit_p      BhvFUNC_PTR(0x00569240)
+#   define ALBHV_Eat_p              BHVFUNC_PTR(0x005607C0)
+#   define ALBHV_TurnToFruit_p      BHVFUNC_PTR(0x00569240)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

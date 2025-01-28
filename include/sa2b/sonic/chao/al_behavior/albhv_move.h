@@ -22,9 +22,9 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-int32_t ALBHV_Climb(        TASK* tp );
-int32_t ALBHV_Glide(        TASK* tp );
-int32_t ALBHV_NoticePlayer( TASK* tp );
+int32_t ALBHV_Climb(        task* tp );
+int32_t ALBHV_Glide(        task* tp );
+int32_t ALBHV_NoticePlayer( task* tp );
 
 EXTERN_END
 
@@ -33,9 +33,9 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_Climb_p            BhvFUNC_PTR(0x00562EB0)
-#   define ALBHV_Glide_p            BhvFUNC_PTR(0x005630C0)
-#   define ALBHV_NoticePlayer_p     BhvFUNC_PTR(0x005634D0)
+#   define ALBHV_Climb_p            BHVFUNC_PTR(0x00562EB0)
+#   define ALBHV_Glide_p            BHVFUNC_PTR(0x005630C0)
+#   define ALBHV_NoticePlayer_p     BHVFUNC_PTR(0x005634D0)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

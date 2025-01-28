@@ -31,26 +31,34 @@
 EXTERN_START
 
 /************************/
-/*  Types               */
+/*  Structures          */
 /************************/
-/****** Matrix **********************************************************************/
-typedef Float*              NJS_MATRIX_PTR; /* matrix pointer                       */
+/****** Ninja Matrix ****************************************************************/
+typedef struct
+{
+    Float m[3][4];          /* matrix in either 4x4 or 3x4 layout                   */
+}
+NJS_MATRIX;
 
-/************************/
-/*  Enums               */
-/************************/
-/****** Matrix **********************************************************************/
-enum {
-    M00, M10, M20, M30,     /* matrix row 1                                         */
-    M01, M11, M21, M31,     /* matrix row 2                                         */
-    M02, M12, M22, M32      /* matrix row 3                                         */
-};
+/****** Ninja Matrix 4x4 ************************************************************/
+typedef struct
+{
+    Float m[4][4];          /* matrix in 4x4 layout                                 */
+}
+NJS_MATRIX44;
 
 /************************/
 /*  Global Variables    */
 /************************/
+/****** Current Matrix **************************************************************/
+#define _nj_curr_matrix_            DATA_REF(NJS_MATRIX*, 0x01A557FC)
+
+/****** Matrix Stack Limits *********************************************************/
+#define _nj_min_matrix_             DATA_REF(NJS_MATRIX*, 0x0267053C)
+#define _nj_max_matrix_             DATA_REF(NJS_MATRIX*, 0x02670588)
+
 /****** Unit Matrix *****************************************************************/
-#define _nj_unit_matrix_            DATA_REF(NJS_MATRIX, 0x025F02A0)
+#define _nj_unit_matrix_            DATA_REF(const NJS_MATRIX, 0x025F02A0)
 
 /************************/
 /*  Prototypes          */
@@ -93,7 +101,8 @@ void    njGetMatrix( NJS_MATRIX* m );
 *     Copy a matrix into 'm'
 *
 *   Parameters:
-*     - m       : return pointer matrix
+*     - md      : destination matrix (optional)
+*     - ms      : matrix to set 'md' to
 */
 void    njSetMatrix( NJS_MATRIX* md, const NJS_MATRIX* ms );
 
@@ -130,7 +139,10 @@ void    njUnitMatrix( NJS_MATRIX* m );
 /****** Multiply Matrices ***********************************************************/
 /*
 *   Description:
-*     Pre-multiply two matrices together
+*     Pre-multiply a matrix with another matrix.
+* 
+*   Notes:
+*     - ( md = md * ms )
 *
 *   Parameters:
 *     - md      : destination matrix (optional)
@@ -139,8 +151,11 @@ void    njUnitMatrix( NJS_MATRIX* m );
 void    njMultiMatrix( NJS_MATRIX* md, const NJS_MATRIX* ms );
 /*
 *   Description:
-*     Post-multiply two matrices together
-*
+*     Post-multiply a matrix with another matrix.
+* 
+*   Notes:
+*     - ( md = ms * md )
+* 
 *   Parameters:
 *     - md      : destination matrix (optional)
 *     - ms      : matrix to multiply with
@@ -353,7 +368,7 @@ void    njSubVector(NJS_VECTOR* vd, const NJS_VECTOR* vs);
 *   Returns:
 *     Length of vector before unit calculation
 */
-Float    njUnitVector( NJS_VECTOR* v );
+Float   njUnitVector( NJS_VECTOR* v );
 
 /****** Scalor Vector *****************************************************************/
 /*
@@ -366,11 +381,11 @@ Float    njUnitVector( NJS_VECTOR* v );
 *   Returns:
 *     Length of vector
 */
-Float    njScalor( const NJS_VECTOR* v );
+Float   njScalor( const NJS_VECTOR* v );
 /*
 *   Description:
 *     Calculate the length of a vector without calling 'njSqrt'. Faster if only
-*   relative size is important.
+*   relative length is important.
 *
 *   Parameters:
 *     - v       : vector
@@ -378,7 +393,7 @@ Float    njScalor( const NJS_VECTOR* v );
 *   Returns:
 *     Length of vector before 'njSqrt'
 */
-Float    njScalor2( const NJS_VECTOR* v );
+Float   njScalor2( const NJS_VECTOR* v );
 
 /****** Vector Product **************************************************************/
 /*
@@ -392,7 +407,7 @@ Float    njScalor2( const NJS_VECTOR* v );
 *   Returns:
 *     Dot/inner product of 'v1' and 'v2'
 */
-Float    njInnerProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2 );
+Float   njInnerProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2 );
 /*
 *   Description:
 *     Calculate the cross/outer product of two vectors
@@ -405,7 +420,22 @@ Float    njInnerProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2 );
 *   Returns:
 *     Length of cross/outer product
 */
-Float    njOuterProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* ov );
+Float   njOuterProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* ov );
+/*
+*   Description:
+*     Calculate the cross/outer product of two vectors without calling 'njSqrt' for
+*   the length value. Faster if only relative length is important, or you don't plan
+*   to use the length value.
+*
+*   Parameters:
+*     - v1      : vector 1
+*     - v2      : vector 2
+*     - ov      : destination cross/outer product
+*
+*   Returns:
+*     Length of cross/outer product before 'njSqrt'
+*/
+Float   njOuterProduct2( const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR* ov );
 
 /****** Project Screen **************************************************************/
 /*
@@ -420,12 +450,15 @@ Float    njOuterProduct( const NJS_VECTOR* v1, const NJS_VECTOR* v2, NJS_VECTOR*
 *     njCalcScreen(&cm, &p2->x, &p2->y);
 *   }
 *
+*   Notes:
+*     - 'm' parameter is unused and always 'NULL'
+*
 *   Parameters:
 *     - m       : matrix (optional)
 *     - p3      : 3D point to project
 *     - p2      : destination 2D coordinates
 */
-void    njProjectScreen( const NJS_MATRIX* m, const NJS_POINT3* p3, NJS_POINT2* p2 ); // 'm' is unused, always 'NULL'
+void    njProjectScreen( const NJS_MATRIX* m, const NJS_POINT3* p3, NJS_POINT2* p2 );
 
 /****** Angle to Quaternion *********************************************************/
 /*
@@ -436,8 +469,21 @@ void    njProjectScreen( const NJS_MATRIX* m, const NJS_POINT3* p3, NJS_POINT2* 
 *     - ang     : euler angle
 *     - qua     : destination quaternion
 */
-void    njXYZAngleToQuaternion(const Angle ang[3], NJS_QUATERNION* qua);
-void    njZXYAngleToQuaternion(const Angle ang[3], NJS_QUATERNION* qua);
+void    njXYZAngleToQuaternion( const Angle ang[3], NJS_QUATERNION* qua );
+void    njZXYAngleToQuaternion( const Angle ang[3], NJS_QUATERNION* qua );
+
+/****** Interpolate Quaternion *********************************************************/
+/*
+*   Description:
+*     Interpolate two quaternions at a given ratio.
+*
+*   Parameters:
+*     - qua0    : quaternion 1
+*     - qua1    : quaternion 2
+*     - rate    : ratio of quat 2, quat 1 will use (1 - 'rate') (0~1)
+*     - qua     : result quaternion
+*/
+void    njInterpolateQuaternion( const NJS_QUATERNION *qua0, const NJS_QUATERNION *qua1, Float rate, NJS_QUATERNION *qua );
 
 /****** Push/Pop Matrix Ex **********************************************************/
 /*
@@ -447,7 +493,7 @@ void    njZXYAngleToQuaternion(const Angle ang[3], NJS_QUATERNION* qua);
 *   Returns:
 *     'true' on success, or 'false' if the top of the matrix stack is reached
 */
-Bool    njPushMatrixEx(void);
+Bool    njPushMatrixEx( void );
 /*
 *   Description:
 *     Pop matrix stack once
@@ -455,7 +501,14 @@ Bool    njPushMatrixEx(void);
 *   Returns:
 *     'true' on success, or 'false' if the bottom of the matrix stack is reached
 */
-Bool    njPopMatrixEx(void);
+Bool    njPopMatrixEx( void );
+
+/****** Unit/Identity Matrix Ex *****************************************************/
+/*
+*   Description:
+*     Set the current matrix to be a unit matrix
+*/
+void    njUnitMatrixEx( void );
 
 /****** Transform Matrix Ex *********************************************************/
 /*
@@ -520,6 +573,26 @@ void    njCalcPointEx( const NJS_POINT3* ps, NJS_POINT3* pd );
 *     - pd      : destination vector 
 */
 void    njCalcVectorEx( const NJS_VECTOR* vs, NJS_VECTOR* vd );
+
+/****** Convert Matrix (SAMT) *******************************************************/
+/*
+*   Description:
+*     Get a 4x4 matrix from a 3x4 matrix
+*
+*   Parameters:
+*     - md      : destination matrix
+*     - ms      : source matrix
+*/
+void    njGetMatrix44(NJS_MATRIX44* md, const NJS_MATRIX* ms);
+/*
+*   Description:
+*     Get a 3x4 matrix from a 4x4 matrix
+*
+*   Parameters:
+*     - md      : destination matrix
+*     - ms      : source matrix
+*/
+void    njGetMatrix34(NJS_MATRIX* md, const NJS_MATRIX44* ms);
 
 EXTERN_END
 

@@ -15,7 +15,7 @@
 /************************/
 /*  Abstracted Types    */
 /************************/
-typedef struct task     TASK;
+typedef struct task     task;
 
 /************************/
 /*  Includes            */
@@ -28,8 +28,8 @@ typedef struct task     TASK;
 typedef struct
 {
     NJS_POINT3 pos;
-    XSSUNIT hit[6];
-    XSSUNIT pre_hit[6];
+    xssunit hit[6];
+    xssunit pre_hit[6];
 }
 XYZ_SHADOW_WORK;
 
@@ -78,25 +78,31 @@ MOVE_WORK;
 /************************/
 EXTERN_START
 /** Initiate MOVE_WORK and put pointer in 'tp->mwp' **/
-MOVE_WORK* MOV_Init(TASK* tp);
+MOVE_WORK* MOV_Init(task* tp);
 
-/** Calculate Angle to player from TASK **/
-Angle   MOV_CalcPlayerAngle(TASK* tp, int player_num);
+/** Update Task's MOVE_WORK parameters, such as applying gravity **/
+void    MOV_Control(task* tp);
 
-/** Turn TASK toward player by `rot_spd` **/
-int32_t MOV_TurnToPlayer2(TASK* tp, Angle rot_spd, int player_num);
+/** Turn to aim position by 'rot_spd' **/
+Angle   MOV_TurnToAim2(task* tp, Angle rot_spd);
+
+/** Calculate Angle to player from Task **/
+Angle   MOV_CalcPlayerAngle(task* tp, int player_num);
+
+/** Turn Task toward player by `rot_spd` **/
+int32_t MOV_TurnToPlayer2(task* tp, Angle rot_spd, int player_num);
 
 /** Clear MOVE_WORK parameters **/
-void    MOV_ClearVelo(TASK* tp);
-void    MOV_ClearAcc(TASK* tp);
+void    MOV_ClearVelo(task* tp);
+void    MOV_ClearAcc(task* tp);
 
 /** Update and calculate collisions **/
-int32_t MOV_DetectCollision(TASK* tp);
+int32_t MOV_DetectCollision(task* tp);
 
 /** Internal detect collision code **/
-int32_t MOV_GetShadowPosXYZ(TASK* tp);
-void    MOV_CheckFloor(TASK* tp);
-void    MOV_CheckWall(TASK* tp);
+int32_t MOV_GetShadowPosXYZ(task* tp);
+void    MOV_CheckFloor(task* tp);
+void    MOV_CheckWall(task* tp);
 
 EXTERN_END
 
@@ -105,14 +111,16 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define MOV_Init_p                   FUNC_PTR(MOVE_WORK*, __cdecl, (TASK*), 0x007966D0)
-#   define MOV_CalcPlayerAngle_p        FUNC_PTR(Angle, __fastcall, (TASK*, int), 0x007969B0)
+#define MOV_Init_p                  FUNC_PTR(MOVE_WORK*, __cdecl, (task*), 0x007966D0)
+#define MOV_CalcPlayerAngle_p       FUNC_PTR(Angle, __fastcall, (task*, int), 0x007969B0)
 
 /** User-Function ptrs **/
-#   define MOV_GetShadowPosXYZ_p        ((void*)0x00797E10)
-#   define MOV_CheckFloor_p             ((void*)0x00796B20)
-#   define MOV_CheckWall_p              ((void*)0x00796CA0)
-#   define MOV_TurnToPlayer2_p          ((void*)0x00796CA0)
+#define MOV_Control_p               ((void*)0x00796780)
+#define MOV_TurnToAim2_p            ((void*)0x00796910)
+#define MOV_GetShadowPosXYZ_p       ((void*)0x00797E10)
+#define MOV_CheckFloor_p            ((void*)0x00796B20)
+#define MOV_CheckWall_p             ((void*)0x00796CA0)
+#define MOV_TurnToPlayer2_p         ((void*)0x00796CA0)
 
 #endif /* SAMT_INCL_FUNCPTRS */
 

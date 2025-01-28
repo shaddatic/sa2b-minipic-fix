@@ -23,11 +23,11 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-int32_t ALBHV_DakkoNormal(  TASK* tp );
-int32_t ALBHV_DakkoDislike( TASK* tp );
-int32_t ALBHV_DakkoLike(    TASK* tp );
-int32_t ALBHV_DakkoTron(    TASK* tp );
-int32_t ALBHV_Dakko(        TASK* tp );
+int32_t ALBHV_DakkoNormal(  task* tp );
+int32_t ALBHV_DakkoDislike( task* tp );
+int32_t ALBHV_DakkoLike(    task* tp );
+int32_t ALBHV_DakkoTron(    task* tp );
+int32_t ALBHV_Dakko(        task* tp );
 
 EXTERN_END
 
@@ -36,11 +36,11 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_DakkoNormal_p      BhvFUNC_PTR(0x005662B0)
-#   define ALBHV_DakkoDislike_p     BhvFUNC_PTR(0x00566300)
-#   define ALBHV_DakkoLike_p        BhvFUNC_PTR(0x005660A0)
-#   define ALBHV_DakkoTron_p        BhvFUNC_PTR(0x00566580)
-#   define ALBHV_Dakko_p            BhvFUNC_PTR(0x00566670)
+#   define ALBHV_DakkoNormal_p      BHVFUNC_PTR(0x005662B0)
+#   define ALBHV_DakkoDislike_p     BHVFUNC_PTR(0x00566300)
+#   define ALBHV_DakkoLike_p        BHVFUNC_PTR(0x005660A0)
+#   define ALBHV_DakkoTron_p        BHVFUNC_PTR(0x00566580)
+#   define ALBHV_Dakko_p            BHVFUNC_PTR(0x00566670)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

@@ -16,8 +16,8 @@
 /************************/
 /*  Abstract types      */
 /************************/
-typedef struct task        TASK;
-typedef struct zxsdwstr    ZXSDWSTR;
+typedef struct task        task;
+typedef struct zxsdwstr    zxsdwstr;
 
 /************************/
 /*  Includes            */
@@ -29,24 +29,25 @@ typedef struct zxsdwstr    ZXSDWSTR;
 /************************/
 /*  Land Entry Flags    */
 /************************/
-#define LANDATTR_SOLID          (0x00000001)
-#define LANDATTR_WATER          (0x00000002)
+#define LANDATTR_GROUND         (0x00000001) /* collision: ground                   */
+#define LANDATTR_WATER          (0x00000002) /* collision: water, swimable          */
 #define LANDATTR_DIGGABLE       (0x00000020)
 #define LANDATTR_NOCLIMB        (0x00000080)
 #define LANDATTR_STAIRS         (0x00000100)
 #define LANDATTR_HURT           (0x00000400)
 #define LANDATTR_FOOTSTEPS      (0x00000800)
 #define LANDATTR_NOLANDING      (0x00001000)
-#define LANDATTR_NOALPHA        (0x00002000)
-#define LANDATTR_NOSHADOW       (0x00008000)
+#define LANDATTR_WATER_SLOW     (0x00002000) /* collision: water, slow movement     */
+#define LANDATTR_NOSHADOW       (0x00008000) /* no shadow maps                      */
 #define LANDATTR_ACCELERATE     (0x00100000)
-#define LANDATTR_NOFOG          (0x00400000)
+#define LANDATTR_NOFOG          (0x00400000) /* disable fog for land entry          */
+#define LANDATTR_MAXCLIP        (0x00800000) /* ignore LT far clip and use nj clip  */
 #define LANDATTR_COMPILED       (0x02000000) /* compiled with DirectCompile         */
 #define LANDATTR_NOCOMPILE      (0x04000000) /* don't compile model                 */
 #define LANDATTR_DYNAMIC        (0x08000000)
 #define LANDATTR_UNK1           (0x20000000) // Usually medium-sized collisions
 #define LANDATTR_UNK2           (0x40000000) // Usually small-sized collisions
-#define LANDATTR_VISIBLE        (0x80000000) /* land entry is visible geometry      */
+#define LANDATTR_DRAW           (0x80000000) /* land entry is to be drawn           */
 
 /************************/
 /*  Structures          */
@@ -66,11 +67,11 @@ OBJ_LANDENTRY;
 
 typedef struct _OBJ_MOTLANDENTRY
 {
-    f32         fFrame;
-    f32         fStep;
-    f32         fMaxFrame;
-    ANY_OBJECT* pObject;
-    NJS_MOTION* pMotion;
+    f32             fFrame;
+    f32             fStep;
+    f32             fMaxFrame;
+    NJS_CNK_OBJECT* pObject;
+    NJS_MOTION*     pMotion;
 }
 OBJ_MOTLANDENTRY;
 
@@ -94,14 +95,14 @@ typedef struct _OBJ_LANDCOLL
 {
     s32         slAttribute;
     NJS_OBJECT* pObject;
-    TASK*       pTask;
+    task*       ptask;
 }
 OBJ_LANDCOLL;
 
 /************************/
 /*  Data                */
 /************************/
-#define LandTaskP               DATA_REF(TASK*         , 0x01945A04)
+#define LandTaskP               DATA_REF(task*         , 0x01945A04)
 
 #define boolLandTableGinja      DATA_REF(b32           , 0x01A5A2D8)
 #define mleriRangeRad           DATA_REF(f32           , 0x0171CAA4)
@@ -138,7 +139,7 @@ int32_t LandChangeChunkLandTable(OBJ_LANDTABLE* land);
 
 void    ListGroundForCollision(f32 xPosition, f32 yPosition, f32 zPosition, f32 fRadius);
 
-int32_t CL_ColPolCheckZxShadow(ZXSDWSTR* zssp, NJS_OBJECT* obp);
+int32_t CL_ColPolCheckZxShadow(zxsdwstr* zssp, NJS_OBJECT* obp);
 
 EXTERN_END
 

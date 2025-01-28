@@ -22,23 +22,23 @@
 /************************/
 /*  Abstract Types      */
 /************************/
-typedef struct task     TASK;
+typedef struct task     task;
 
 /************************/
 /*  Data                */
 /************************/
-#define ALO_BoxTaskPointer      DATA_REF(TASK*, 0x01AED32C)
+#define ALO_BoxTaskPointer      DATA_REF(task*, 0x01AED32C)
 
 /************************/
 /*  Functions           */
 /************************/
 EXTERN_START
-void    ALO_BoxCreate(NJS_POINT3* pPos);
+void    ALO_BoxCreate( const NJS_POINT3* pPos );
 
 /** Internal task functions **/
-void    ALO_BoxExecutor(TASK* tp);
-void    ALO_BoxDisplayer(TASK* tp);
-void    ALO_BoxDestructor(TASK* tp);
+void    ALO_BoxExecutor(task* tp);
+void    ALO_BoxDisplayer(task* tp);
+void    ALO_BoxDestructor(task* tp);
 
 EXTERN_END
 
@@ -47,10 +47,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define ALO_BoxCreate_p          FUNC_PTR(void, __cdecl, (NJS_POINT3* pPos), 0x00580890)
-#   define ALO_BoxExecutor_p        FUNC_PTR(void, __cdecl, (TASK*)           , 0x005801C0)
-#   define ALO_BoxDisplayer_p       FUNC_PTR(void, __cdecl, (TASK*)           , 0x00580510)
-#   define ALO_BoxDestructor_p      FUNC_PTR(void, __cdecl, (TASK*)           , 0x00580870)
+#   define ALO_BoxCreate_p          FUNC_PTR(void, __cdecl, (const NJS_POINT3*), 0x00580890)
+#   define ALO_BoxExecutor_p        FUNC_PTR(void, __cdecl, (task*)            , 0x005801C0)
+#   define ALO_BoxDisplayer_p       FUNC_PTR(void, __cdecl, (task*)            , 0x00580510)
+#   define ALO_BoxDestructor_p      FUNC_PTR(void, __cdecl, (task*)            , 0x00580870)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

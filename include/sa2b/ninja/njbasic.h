@@ -49,14 +49,16 @@ typedef struct {
     Uint16          nbMat;      /* material count               */
     NJS_POINT3      center;     /* model center                 */
     Float           r;          /* radius                       */
+#if 0
     void*           res;        /* ???????????                  */
+#endif
 } NJS_MODEL;
 
 /*
  * NJS_OBJECT
  */
 typedef struct obj {
-    uint32_t        evalflags;  /* evalation flags              */
+    Uint32          evalflags;  /* evalation flags              */
     NJS_MODEL*      model;      /* model data pointer           */
     Float           pos[3];     /* translation                  */
     Angle           ang[3];     /* rotation or im part of quat  */

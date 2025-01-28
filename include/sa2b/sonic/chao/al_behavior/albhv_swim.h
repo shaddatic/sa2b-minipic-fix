@@ -22,8 +22,8 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-int32_t ALBHV_Swim(     TASK* tp );
-int32_t ALBHV_SwimPuha( TASK* tp );
+int32_t ALBHV_Swim(     task* tp );
+int32_t ALBHV_SwimPuha( task* tp );
 
 EXTERN_END
 
@@ -32,8 +32,8 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_Swim_p             BhvFUNC_PTR(0x00562330)
-#   define ALBHV_SwimPuha_p         BhvFUNC_PTR(0x00562160)
+#   define ALBHV_Swim_p             BHVFUNC_PTR(0x00562330)
+#   define ALBHV_SwimPuha_p         BHVFUNC_PTR(0x00562160)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

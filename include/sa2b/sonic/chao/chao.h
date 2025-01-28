@@ -24,7 +24,7 @@
 #include <sa2b/sonic/motion.h>
 
 /** Task Work **/
-#include <sa2b/sonic/task/taskwk.h>
+#include <sa2b/sonic/task.h>
 
 /** Colli Info **/
 #include <sa2b/sonic/c_colli/ccl_info.h>
@@ -32,7 +32,7 @@
 /************************/
 /*  Abstract Types      */
 /************************/
-typedef struct task                     TASK;
+typedef struct task                     task;
 typedef struct chao_param_gc            CHAO_PARAM_GC;
 typedef struct al_entry_work            ALW_ENTRY_WORK;
 typedef struct al_object                AL_OBJECT;
@@ -41,7 +41,7 @@ typedef struct al_group_object_list     AL_GROUP_OBJECT_LIST;
 /************************/
 /*  Typedefs            */
 /************************/
-typedef int32_t(__cdecl* BHV_FUNC)(TASK*);
+typedef int32_t(__cdecl* BHV_FUNC)(task*);
 
 /************************/
 /*  Enums               */
@@ -553,18 +553,18 @@ typedef struct
 }
 AL_PERCEPTION;
 
-#define GET_CHAOWK(_tp)     ((CHAOWK*)(_tp)->twp)
+#define GET_CHAOWK(_tp)     ((chaowk*)(_tp)->twp)
 
 typedef struct chaowk
 {
-    TASKWK();
+    TASKWK;
 
     uint32_t       Timer;
-    TASK*          pMayu;
-    TASK*          pBookTask;
+    task*          pMayu;
+    task*          pBooktask;
     int32_t        NestFlag;
-    TASK*          pAnyTask;
-    TASK*          pAimTask;
+    task*          pAnytask;
+    task*          pAimtask;
     int32_t        AimNum;
     int32_t        RememberNum;
     int32_t        pitch;
@@ -574,7 +574,7 @@ typedef struct chaowk
     TMP_PARAM      tmpParam;
     int32_t        Stamina;
     int32_t        AimStamina;
-    TASK*          tp;
+    task*          tp;
     Angle          pre_ang[3];
     uint32_t       ChaoFlag;
     uint16_t       ColliFormat;
@@ -590,7 +590,7 @@ typedef struct chaowk
     AL_PERCEPTION  Perception;
     void*          pWork;
 }
-CHAOWK;
+chaowk;
 
 typedef struct al_shape_element
 {
@@ -628,12 +628,12 @@ EXTERN_START
 /** 'pParamGC' can be NULL, and a new paramGC will be generated
     'IsParamCopy' copies given 'pParamGC' info and doesn't add it to the ALW entry save info
     'pElement' can be NULL, moves it's info into Chao's paramGC **/
-TASK*   CreateChaoExtra(CHAO_PARAM_GC* pParamGC, b32 IsParamCopy, AL_SHAPE_ELEMENT* pElement, NJS_POINT3* pPos, Angle angy);
+task*   CreateChaoExtra(CHAO_PARAM_GC* pParamGC, b32 IsParamCopy, AL_SHAPE_ELEMENT* pElement, NJS_POINT3* pPos, Angle angy);
 
 /** Task functions **/
-void    ChaoExecutor(TASK* tp);
-void    ChaoDestructor(TASK* tp);
-void    ChaoDisplayer(TASK* tp);
+void    ChaoExecutor(task* tp);
+void    ChaoDestructor(task* tp);
+void    ChaoDisplayer(task* tp);
 
 EXTERN_END
 
@@ -642,10 +642,10 @@ EXTERN_END
 /************************/
 #ifdef  SAMT_INCL_FUNCPTRS
 /** Function ptrs **/
-#   define CreateChaoExtra_p        FUNC_PTR(TASK*, __cdecl, (CHAO_PARAM_GC*, b32, AL_SHAPE_ELEMENT*, NJS_POINT3*, Angle), 0x005501D0)
-#   define ChaoExecutor_p           FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FE20)
-#   define ChaoDestructor_p         FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FF30)
-#   define ChaoDisplayer_p          FUNC_PTR(void , __cdecl, (TASK*)                                                     , 0x0054FF80)
+#   define CreateChaoExtra_p        FUNC_PTR(task*, __cdecl, (CHAO_PARAM_GC*, b32, AL_SHAPE_ELEMENT*, NJS_POINT3*, Angle), 0x005501D0)
+#   define ChaoExecutor_p           FUNC_PTR(void , __cdecl, (task*)                                                     , 0x0054FE20)
+#   define ChaoDestructor_p         FUNC_PTR(void , __cdecl, (task*)                                                     , 0x0054FF30)
+#   define ChaoDisplayer_p          FUNC_PTR(void , __cdecl, (task*)                                                     , 0x0054FF80)
 
 #endif/*SAMT_INCL_FUNCPTRS*/
 

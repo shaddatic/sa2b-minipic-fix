@@ -55,11 +55,7 @@
 /*--------------------------------------*/
 typedef Sint32  Angle;
 typedef Sint16  Sangle;
-typedef Float   GJS_MATRIX[12];
-typedef Sint8   NJS_SYS_ATTR[64];
 typedef void  (*NJS_INT_FUNC)(void);
-
-typedef GJS_MATRIX NJS_MATRIX;
 
 typedef struct
 {
@@ -166,8 +162,8 @@ typedef struct {
 } NJS_BGRA;
 
 typedef union {
-    Uint32  color;
-    NJS_TEX tex;
+    Uint32   color;
+    NJS_TEX  tex;
     NJS_BGRA argb;
 } NJS_COLOR;
 

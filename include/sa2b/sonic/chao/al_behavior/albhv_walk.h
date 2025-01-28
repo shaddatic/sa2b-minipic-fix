@@ -22,9 +22,9 @@
 /*  Functions           */
 /************************/
 EXTERN_START
-void    AL_WalkSelect( TASK* tp );
+void    AL_WalkSelect( task* tp );
 
-int32_t ALBHV_Move( TASK* tp );
+int32_t ALBHV_Move( task* tp );
 
 EXTERN_END
 
@@ -33,7 +33,7 @@ EXTERN_END
 /************************/
 #ifdef SAMT_INCL_FUNCPTRS
 /** Behavior ptrs **/
-#   define ALBHV_Move_p         BhvFUNC_PTR(0x00562D20)
+#   define ALBHV_Move_p         BHVFUNC_PTR(0x00562D20)
 
 /** User-Function ptrs **/
 #   define AL_WalkSelect_p      ((void*)0x005A3650)
